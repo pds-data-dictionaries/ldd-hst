@@ -1,23 +1,23 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <?xml-model href="https://pds.nasa.gov/pds4/pds/v1/PDS4_PDS_1F00.sch"?>
 
-<Ingest_LDD 
+<Ingest_LDD
  xmlns="http://pds.nasa.gov/pds4/pds/v1"
  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
- xsi:schemaLocation="http://pds.nasa.gov/pds4/pds/v1 
+ xsi:schemaLocation="http://pds.nasa.gov/pds4/pds/v1
                      https://pds.nasa.gov/pds4/pds/v1/PDS4_PDS_1F00.xsd">
 
     <name>Hubble Space Telescope Dictionary Full</name>
     <ldd_version_id>1.0</ldd_version_id>
     <dictionary_type>Discipline</dictionary_type>
-    <full_name>Mark R. Showalter</full_name>                <!-- who? -->
+    <full_name>Mark R. Showalter</full_name>
     <steward_id>rings</steward_id>
     <namespace_id>hst</namespace_id>
     <comment>
-        version 1.0  2020-08-25
+        version 1.0  2022-10-06
         - Initial version
     </comment>
-    <last_modification_date_time>2020-08-25T12:00:00</last_modification_date_time>
+    <last_modification_date_time>2022-10-06T202:00:00</last_modification_date_time>
 
 <!--      Observing program attributes     -->
 
@@ -92,6 +92,23 @@
         </DD_Value_Domain>
     </DD_Attribute>
 
+<!-- Attribute visit_id -->
+    <DD_Attribute>
+        <name>visit_id</name>
+        <version_id>1.0</version_id>
+        <local_identifier>visit_id</local_identifier>
+        <nillable_flag>false</nillable_flag>
+        <submitter_name>Mark R. Showalter</submitter_name>
+        <definition>
+            The two-digit "base 36" code identifying the visit number for this observations.
+            An individual visit can comprise one or more orbits of HST around the Earth.
+        </definition>
+        <DD_Value_Domain>
+            <enumeration_flag>false</enumeration_flag>
+            <value_data_type>ASCII_Short_String_Collapsed</value_data_type>
+        </DD_Value_Domain>
+    </DD_Attribute>
+
 <!--      Instrument attributes     -->
 
 <!-- Attribute instrument_id -->
@@ -114,6 +131,10 @@
             <DD_Permissible_Value>
                 <value>COS</value>
                 <value_meaning>Cosmic Origins Spectrograph</value_meaning>
+            </DD_Permissible_Value>
+            <DD_Permissible_Value>
+                <value>FGS</value>
+                <value_meaning>Fine Guidance Sensors</value_meaning>
             </DD_Permissible_Value>
             <DD_Permissible_Value>
                 <value>FOC</value>
@@ -144,20 +165,13 @@
                 <value_meaning>Wide Field Camera 3</value_meaning>
             </DD_Permissible_Value>
             <DD_Permissible_Value>
-                <value>WF/PC</value>
+                <value>WFPC</value>
                 <value_meaning>Wide Field/Planetary Camera</value_meaning>
             </DD_Permissible_Value>
             <DD_Permissible_Value>
                 <value>WFPC2</value>
                 <value_meaning>Wide Field/Planetary Camera 2</value_meaning>
             </DD_Permissible_Value>
-
-        <!-- To be supported later...
-            <DD_Permissible_Value>
-                <value>FGS</value>
-                <value_meaning>Fine Guidance Sensors</value_meaning>
-            </DD_Permissible_Value>
-        -->
         </DD_Value_Domain>
     </DD_Attribute>
 
@@ -171,16 +185,7 @@
         <definition>
             An abbreviated name or acronym for the specific channel of the HST instrument
             used for this observation. Here, "channel" refers to a distinct optical path
-            used by one or more of the instrument's detectors. 
-
-            For NICMOS data products, this attribute is derived from the value of FITS
-            keyword CAMERA, as follows:
-            - CAMERA = 1 -> channel_id = NIC1;
-            - CAMERA = 2 -> channel_id = NIC2;
-            - CAMERA = 3 -> channel_id = NIC3.
-
-            For WF/PC, this attribute is the value of FITS keyword CAMERA, either PC or
-            WFC.
+            used by one or more of the instrument's detectors.
 
             For HST instruments, such as WFPC2, that do not have multiple channels, this
             attribute has the same value as the instrument_id attribute.
@@ -198,23 +203,29 @@
                 <value>SBC</value>
                 <value_meaning>Solar Blind Channel of ACS</value_meaning>
             </DD_Permissible_Value>
-            <DD_Permissible_Value>   <!-- NOTE: two meanings, depending on instrument -->
+            <DD_Permissible_Value>
                 <value>WFC</value>
-                <value_meaning>Wide Field Channel of either ACS or WF/PC</value_meaning>
+                <value_meaning>Wide Field Channel of either ACS</value_meaning>
             </DD_Permissible_Value>
 
             <!-- COS -->
             <DD_Permissible_Value>
                 <value>FUV</value>
                 <value_meaning>
-                    The far-ultraviolet detector channel on COS.
+                    The far-ultraviolet channel on COS.
                 </value_meaning>
             </DD_Permissible_Value>
             <DD_Permissible_Value>
                 <value>NUV</value>
                 <value_meaning>
-                    The near-ultraviolet detector channel on COS.
+                    The near-ultraviolet channel on COS.
                 </value_meaning>
+            </DD_Permissible_Value>
+
+            <!-- FGS -->
+            <DD_Permissible_Value>
+                <value>FGS</value>
+                <value_meaning>Fine Guidance Sensor</value_meaning>
             </DD_Permissible_Value>
 
             <!-- FOC -->
@@ -225,14 +236,22 @@
 
             <!-- FOS -->
             <DD_Permissible_Value>
-                <value>FOS</value>
-                <value_meaning>Faint Object Spectrograph</value_meaning>
+                <value>AMBER</value>
+                <value_meaning>The red or "amber" detector channel of FOS</value_meaning>
+            </DD_Permissible_Value>
+            <DD_Permissible_Value>
+                <value>BLUE</value>
+                <value_meaning>The blue detector channel of FOS</value_meaning>
             </DD_Permissible_Value>
 
             <!-- GHRS -->
             <DD_Permissible_Value>
-                <value>GHRS</value>
-                <value_meaning>Goddard High Resolution Spectrometer</value_meaning>
+                <value>D1</value>
+                <value_meaning>Detector 1, the short-wavelength channel of GHRS</value_meaning>
+            </DD_Permissible_Value>
+            <DD_Permissible_Value>
+                <value>D2</value>
+                <value_meaning>Detector 2, the longer-wavelength channel of GHRS</value_meaning>
             </DD_Permissible_Value>
 
             <!-- HSP -->
@@ -271,14 +290,14 @@
             <DD_Permissible_Value>
                 <value>FUV-MAMA</value>
                 <value_meaning>
-                    The Far-Ultraviolet Multi-Anode Microchannel Array detector on STIS,
+                    The Far-Ultraviolet Multi-Anode Microchannel Array detector channel on STIS,
                     which covers the wavelength range 1150 to 1700 Angstroms.
                 </value_meaning>
             </DD_Permissible_Value>
             <DD_Permissible_Value>
                 <value>NUV-MAMA</value>
                 <value_meaning>
-                    The Near-Ultraviolet Multi-Anode Microchannel Array detector on STIS,
+                    The Near-Ultraviolet Multi-Anode Microchannel Array detector channel on STIS,
                     which covers the wavelength range 1600 to 3100 Angstroms.
                 </value_meaning>
             </DD_Permissible_Value>
@@ -299,12 +318,15 @@
                 <value_meaning>Infrared channel of WFC3</value_meaning>
             </DD_Permissible_Value>
 
-            <!-- WF/PC -->
+            <!-- WFPC -->
             <DD_Permissible_Value>
                 <value>PC</value>
-                <value_meaning>Planetary Camera channel of WF/PC</value_meaning>
+                <value_meaning>Planetary Camera channel of WFPC</value_meaning>
             </DD_Permissible_Value>
-            <!-- NOTE: WFC is defined above, under ACS -->
+            <DD_Permissible_Value>
+                <value>WF</value>
+                <value_meaning>Wide Field channel of WFPC</value_meaning>
+            </DD_Permissible_Value>
 
             <!-- WFPC2 -->
             <DD_Permissible_Value>
@@ -326,44 +348,6 @@
             obtained the data found in this HST product. This parameter is repeated if
             multiple detectors were used.
 
-            For WFPC2 data products, this is derived from the sequence of unique values of
-            FITS keyword DETECTOR among all the FITS headers in the file. Values are PC1,
-            WF2, WF3, and WF4, based on DETECTOR values of 1-4.
-
-            For ACS/WFC and WFC3/UVIS data products, this is derived from the sequence of
-            unique values of FITS keyword CCDCHIP, which can have values of 1, 2, or -999.
-
-            For ACS/WFC data products:
-            - CCDCHIP = 1 -> detector_id = WFC1;
-            - CCDCHIP = 2 -> detector_id = WFC2;
-            - CCDCHIP = -999 -> detector_id is duplicated, with values of both WFC1 and
-              WFC2.
-
-            For WFC3/UVIS data products:
-            - CCDCHIP = 1 -> detector_id = UVIS1;
-            - CCDCHIP = 2 -> detector_id = UVIS2;
-            - CCDCHIP = -999 -> detector_id is duplicated, with values of both UVIS1 and
-              UVIS2.
-
-            For COS/FUV data products:
-            - SEGMENT = FUVA -> detector_id = FUVA;
-            - SEGMENT = FUVB -> detector_id = FUVB;
-            - SEGMENT = BOTH -> detector_id is repeated, with values of both FUVA and FUVB;
-            - SEGMENT = N/A -> no FUV detector was used.
-
-            For GHRS data products:
-            - DETECTOR = 1 -> detector_id = GHRS1
-            - DETECTOR = 2 -> detector_id = GHRS2
-
-            For HSP data products, this can be determined from the value of the FITS keyword
-            CONFIG, which is found in the _shf.fits files. The format is "HSP/det" or
-            "HSP/det1/det2", indicating up to two detectors.
-
-            For WF/PC data products, the detectors are indicated within a FITS TABLE
-            extension of the data file. Under most circumstances, all four detectors are
-            used, either WF1, WF2, WF3, and WF4, or PC5, PC6, PC7, and PC8. However, it is
-            possible for a product to contain a subset of these.
-
             For instruments that do not have multiple detectors, this attribute occurs just
             once and has the same value as the channel_id attribute.
         </definition>
@@ -374,35 +358,61 @@
             <!-- ACS -->
             <DD_Permissible_Value>
                 <value>HRC</value>
-                <value_meaning>Detector for the ACS/HRC</value_meaning>
+                <value_meaning>Detector for ACS/HRC</value_meaning>
             </DD_Permissible_Value>
             <DD_Permissible_Value>
                 <value>SBC</value>
-                <value_meaning>Detector for the ACS/SBC</value_meaning>
+                <value_meaning>Detector for ACS/SBC</value_meaning>
             </DD_Permissible_Value>
             <DD_Permissible_Value>
                 <value>WFC1</value>
-                <value_meaning>Dectector 1 of the ACS/WFC</value_meaning>
+                <value_meaning>Dectector 1 of ACS/WFC</value_meaning>
             </DD_Permissible_Value>
             <DD_Permissible_Value>
                 <value>WFC2</value>
-                <value_meaning>Dectector 2 of the ACS/WFC</value_meaning>
+                <value_meaning>Dectector 2 of ACS/WFC</value_meaning>
             </DD_Permissible_Value>
 
             <!-- COS -->
             <DD_Permissible_Value>
-                <value>FUV</value>
-                <value_meaning>Detector for the COS/FUV</value_meaning>
+                <value>FUVA</value>
+                <value_meaning>Detector A of COS/FUV</value_meaning>
+            </DD_Permissible_Value>
+            <DD_Permissible_Value>
+                <value>FUVB</value>
+                <value_meaning>Detector B of COS/FUV</value_meaning>
             </DD_Permissible_Value>
             <DD_Permissible_Value>
                 <value>NUV</value>
-                <value_meaning>Detector for the COS/NUV</value_meaning>
+                <value_meaning>Detector for COS/NUV</value_meaning>
+            </DD_Permissible_Value>
+
+            <!-- FGS -->
+            <DD_Permissible_Value>
+                <value>FGS1</value>
+                <value_meaning>Find Guidance Sensor 1</value_meaning>
+            </DD_Permissible_Value>
+            <DD_Permissible_Value>
+                <value>FGS1R</value>
+                <value_meaning>Find Guidance Sensor 1R, which replaced FGS1 in February 1997.</value_meaning>
+            </DD_Permissible_Value>
+            <DD_Permissible_Value>
+                <value>FGS2</value>
+                <value_meaning>Find Guidance Sensor 2</value_meaning>
+            </DD_Permissible_Value>
+            <DD_Permissible_Value>
+                <value>FGS2R</value>
+                <value_meaning>Find Guidance Sensor 2R, which replaced FGS2 in December 1999.</value_meaning>
+            </DD_Permissible_Value>
+            <DD_Permissible_Value>
+                <value>FGS3</value>
+                <value_meaning>Find Guidance Sensor 3</value_meaning>
             </DD_Permissible_Value>
 
             <!-- FOC -->
             <DD_Permissible_Value>
                 <value>FOC</value>
-                <value_meaning>Faint Object Camera</value_meaning>
+                <value_meaning>Detector for the Faint Object Camera</value_meaning>
             </DD_Permissible_Value>
 
             <!-- FOS -->
@@ -417,11 +427,11 @@
 
             <!-- GHRS -->
             <DD_Permissible_Value>
-                <value>GHRS1</value>
+                <value>D1</value>
                 <value_meaning>GHRS detector side 1</value_meaning>
             </DD_Permissible_Value>
             <DD_Permissible_Value>
-                <value>GHRS2</value>
+                <value>D2</value>
                 <value_meaning>GHRS detector side 2</value_meaning>
             </DD_Permissible_Value>
 
@@ -489,43 +499,43 @@
                 <value_meaning>Detector for the WFC3/IR</value_meaning>
             </DD_Permissible_Value>
 
-            <!-- WF/PC and WFPC2 -->
+            <!-- WFPC and WFPC2 -->
             <DD_Permissible_Value>
                 <value>PC1</value>
                 <value_meaning>Detector PC1 of WFPC2</value_meaning>
             </DD_Permissible_Value>
             <DD_Permissible_Value>
                 <value>PC5</value>
-                <value_meaning>Detector PC5 of WF/PC</value_meaning>
+                <value_meaning>Detector PC5 of WFPC</value_meaning>
             </DD_Permissible_Value>
             <DD_Permissible_Value>
                 <value>PC6</value>
-                <value_meaning>Detector PC6 of WF/PC</value_meaning>
+                <value_meaning>Detector PC6 of WFPC</value_meaning>
             </DD_Permissible_Value>
             <DD_Permissible_Value>
                 <value>PC7</value>
-                <value_meaning>Detector PC7 of WF/PC</value_meaning>
+                <value_meaning>Detector PC7 of WFPC</value_meaning>
             </DD_Permissible_Value>
             <DD_Permissible_Value>
                 <value>PC8</value>
-                <value_meaning>Detector PC8 of WF/PC</value_meaning>
+                <value_meaning>Detector PC8 of WFPC</value_meaning>
             </DD_Permissible_Value>
 
             <DD_Permissible_Value>
                 <value>WF1</value>
-                <value_meaning>Detector WF1 of WF/PC</value_meaning>
+                <value_meaning>Detector WF1 of WFPC</value_meaning>
             </DD_Permissible_Value>
             <DD_Permissible_Value>
                 <value>WF2</value>
-                <value_meaning>Detector WF2 of either WF/PC or WFPC2</value_meaning>
+                <value_meaning>Detector WF2 of either WFPC or WFPC2</value_meaning>
             </DD_Permissible_Value>
             <DD_Permissible_Value>
                 <value>WF3</value>
-                <value_meaning>Detector WF3 of either WF/PC or WFPC2</value_meaning>
+                <value_meaning>Detector WF3 of either WFPC or WFPC2</value_meaning>
             </DD_Permissible_Value>
             <DD_Permissible_Value>
                 <value>WF4</value>
-                <value_meaning>Detector WF4 of either WF/PC or WFPC2</value_meaning>
+                <value_meaning>Detector WF4 of either WFPC or WFPC2</value_meaning>
             </DD_Permissible_Value>
         </DD_Value_Domain>
     </DD_Attribute>
@@ -539,14 +549,14 @@
         <submitter_name>Mark R. Showalter</submitter_name>
         <definition>
             The type of the observation. For most HST data files, this is the value of FITS
-            keyword OBSTYPE, either IMAGING or SPECTROGRAPHIC. IMAGING indicates that a 2-D
-            image with two spatial axes was obtained. SPECTROGRAPHIC indicates that one of
+            keyword OBSTYPE, either IMAGING or SPECTROSCOPIC. IMAGING indicates that a 2-D
+            image with two spatial axes was obtained. SPECTROSCOPIC indicates that one of
             the axes of the data array is related to wavelength. TIME-SERIES indicates a data
             array in which the primary axis sampling is by time.
 
             The FITS keyword OBSTYPE does not appear in some data products. However, several
             instruments produce only one type of observation. Observations from ACS, NICMOS,
-            WFC3, WF/PC, and WFPC2 are always IMAGES; observations from COS, FOS, and GHRS
+            WFC3, WFPC, and WFPC2 are always IMAGES; observations from COS, FOS, and GHRS
             are always SPECTROSCOPIC.
 
             For ACS/HRC, the FITS keyword OBSTYPE can have a value of CORONAGRAPHIC.
@@ -563,7 +573,7 @@
                 </value_meaning>
             </DD_Permissible_Value>
             <DD_Permissible_Value>
-                <value>SPECTROGRAPHIC</value>
+                <value>SPECTROSCOPIC</value>
                 <value_meaning>
                     One of the axes of the data array is related to wavelength.
                 </value_meaning>
@@ -603,7 +613,7 @@
         <name>moving_target_flag</name>
         <version_id>1.0</version_id>
         <local_identifier>moving_target_flag</local_identifier>
-        <nillable_flag>false</nillable_flag>
+        <nillable_flag>true</nillable_flag>
         <submitter_name>Mark R. Showalter</submitter_name>
         <definition>
             A Boolean flag (true, false) indicating whether or not the telescope pointing
@@ -617,12 +627,12 @@
         </DD_Value_Domain>
     </DD_Attribute>
 
-<!-- Attribute moving_target_keywords -->
+<!-- Attribute moving_target_keyword -->
     <DD_Attribute>
-        <name>moving_target_keywords</name>
+        <name>moving_target_keyword</name>
         <version_id>1.0</version_id>
-        <local_identifier>moving_target_keywords</local_identifier>
-        <nillable_flag>false</nillable_flag>
+        <local_identifier>moving_target_keyword</local_identifier>
+        <nillable_flag>true</nillable_flag>
         <submitter_name>Mark R. Showalter</submitter_name>
         <definition>
             Keyword values used in the HST planning software to define a moving target. These
@@ -647,7 +657,7 @@
         <name>moving_target_description</name>
         <version_id>1.0</version_id>
         <local_identifier>moving_target_description</local_identifier>
-        <nillable_flag>false</nillable_flag>
+        <nillable_flag>true</nillable_flag>
         <submitter_name>Mark R. Showalter</submitter_name>
         <definition>
             The detailed information used for targeting HST. This includes information about
@@ -676,7 +686,7 @@
         <name>aperture_name</name>
         <version_id>1.0</version_id>
         <local_identifier>aperture_name</local_identifier>
-        <nillable_flag>false</nillable_flag>
+        <nillable_flag>true</nillable_flag>
         <submitter_name>Mark R. Showalter</submitter_name>
         <definition>
             The name of the aperture used for the observation. For HST data files, this is
@@ -684,11 +694,7 @@
             instrument-specific; see the relevant HST Instrument Handbooks and Data
             Handbooks for further details.
 
-            WF/PC, WFPC2, and HSP data files do not indicate which aperture was used.
-            However, the value can be found in the associated file _shf.fits or _spt.fits
-            files as the value of FITS keyword APER_1.
-
-            For FOS data products, this is the value of FITS keyword APER_ID.
+            This attribute is not applicable to FOC data.
         </definition>
         <DD_Value_Domain>
             <enumeration_flag>false</enumeration_flag>
@@ -701,7 +707,7 @@
         <name>proposed_aperture_name</name>
         <version_id>1.0</version_id>
         <local_identifier>proposed_aperture_name</local_identifier>
-        <nillable_flag>false</nillable_flag>
+        <nillable_flag>true</nillable_flag>
         <submitter_name>Mark R. Showalter</submitter_name>
         <definition>
             The name of the proposed aperture used for the observation. For some data files,
@@ -709,6 +715,8 @@
             aperture need not be the same as the aperture actually used. If the FITS keyword
             PROPAPER is missing or has a blank value, the value of FITS keyword APERTURE is
             used instead.
+
+            This attribute is not applicable to FOC data.
         </definition>
         <DD_Value_Domain>
             <enumeration_flag>false</enumeration_flag>
@@ -759,7 +767,7 @@
             FQ634N, FQ672N, FQ727N, FQ906N, and FQ924N. (See Table 6.4 of the WFC3
             Instrument Handbook.)
 
-            For WF/PC, this is derived from the aperture value:
+            For WFPC, this is derived from the aperture value:
             - WF1 for aperture W1; WF2 for aperture W2, etc.
             - PC5 for aperture P5; PC6 for aperture P6, etc.
 
@@ -926,7 +934,7 @@
         <name>center_filter_wavelength</name>
         <version_id>1.0</version_id>
         <local_identifier>center_filter_wavelength</local_identifier>
-        <nillable_flag>false</nillable_flag>
+        <nillable_flag>true</nillable_flag>
         <submitter_name>Mark R. Showalter</submitter_name>
         <definition>
             The approximate central wavelength of the filter bandpass, in microns. For WFPC2
@@ -934,7 +942,7 @@
             10,000 to convert units from Angstroms to microns. The value is not provided for
             other HST instruments.
 
-            For other HST instruments, this attribute is assigned a value of zero.
+            For other HST instruments, this attribute is not applicable.
         </definition>
         <DD_Value_Domain>
             <enumeration_flag>false</enumeration_flag>
@@ -948,7 +956,7 @@
         <name>bandwidth</name>
         <version_id>1.0</version_id>
         <local_identifier>bandwidth</local_identifier>
-        <nillable_flag>false</nillable_flag>
+        <nillable_flag>true</nillable_flag>
         <submitter_name>Mark R. Showalter</submitter_name>
         <definition>
             The approximate full width of the spectral bandpass, in microns. For WFPC2 and
@@ -956,7 +964,7 @@
             convert units from Angstroms to microns. The value is not provided for other HST
             instruments.
 
-            For other HST instruments, this attribute is assigned a value of zero.
+            For other HST instruments, this attribute is not applicable.
         </definition>
         <DD_Value_Domain>
             <enumeration_flag>false</enumeration_flag>
@@ -970,14 +978,14 @@
         <name>spectral_resolution</name>
         <version_id>1.0</version_id>
         <local_identifier>spectral_resolution</local_identifier>
-        <nillable_flag>false</nillable_flag>
+        <nillable_flag>true</nillable_flag>
         <submitter_name>Mark R. Showalter</submitter_name>
         <definition>
             The approximate spectral resolution of this data product, in microns. For STIS
             data files, this is the value of FITS keyword SPECRES, divided by 10,000 to
             convert units from Angstroms to microns.
 
-            For other HST instruments, this attribute is assigned a value of zero.
+            For other HST instruments, this attribute is not applicable.
         </definition>
         <DD_Value_Domain>
             <enumeration_flag>false</enumeration_flag>
@@ -993,23 +1001,14 @@
         <name>instrument_mode_id</name>
         <version_id>1.0</version_id>
         <local_identifier>instrument_mode_id</local_identifier>
-        <nillable_flag>false</nillable_flag>
+        <nillable_flag>true</nillable_flag>
         <submitter_name>Mark R. Showalter</submitter_name>
         <definition>
             The operating mode of the instrument. For most HST data products, this is the
             value of FITS keyword OBSMODE. Consult the relevant HST handbooks for details
             about each mode.
 
-            For WF/PC and WFPC2 products, this is the value of FITS keyword MODE rather
-            than OBSMODE. Possible values are:
-            - FULL: full-resolution (800x800 image)
-            - AREA: half-resolution (400x400 image)
-
-            For FOC products, this is the value of FITS keyword OPTCRLY, with typical values
-            of either F48 or F96.
-
-            For HSP products, this is the value of FITS keyword OPMODE, as is found in the
-            _shf.fits files.
+            This attribute is not applicable to FGS data files.
         </definition>
         <DD_Value_Domain>
             <enumeration_flag>false</enumeration_flag>
@@ -1022,7 +1021,7 @@
         <name>gain_setting</name>
         <version_id>1.0</version_id>
         <local_identifier>gain_setting</local_identifier>
-        <nillable_flag>false</nillable_flag>
+        <nillable_flag>true</nillable_flag>
         <submitter_name>Mark R. Showalter</submitter_name>
         <definition>
             The commanded gain of the CCD, typically in units of electrons per DN.
@@ -1032,15 +1031,15 @@
 
             For ACS, STIS, and WFC3, it is the value of FITS keyword CCDGAIN.
 
-            For HST instruments that do not have gain settings, this attribute is
-            assigned a value of zero.
+            This attribute is not applicable to HST instruments that do not have gain
+            settings.
         </definition>
         <DD_Value_Domain>
             <enumeration_flag>false</enumeration_flag>
             <value_data_type>ASCII_Real</value_data_type>
         </DD_Value_Domain>
     </DD_Attribute>
-    
+
 <!-- Attribute coronagraph_flag -->
     <DD_Attribute>
         <name>coronagraph_flag</name>
@@ -1061,15 +1060,15 @@
 
             For NICMOS/NIC2 products, a coronagraph is in use if APERTURE is NIC2-CORON.
 
-            For HST instruments that do not have a coronagraph, this attribute always has a
-            value of false.
+            This attribute is always false for HST instruments that do not have a
+            coronagraph.
         </definition>
         <DD_Value_Domain>
             <enumeration_flag>false</enumeration_flag>
             <value_data_type>ASCII_Boolean</value_data_type>
         </DD_Value_Domain>
     </DD_Attribute>
-    
+
 <!-- Attribute cr_split_count -->
     <DD_Attribute>
         <name>cosmic_ray_split_count</name>
@@ -1153,7 +1152,7 @@
             BINAXIS1 and BINAXIS2 can be found in the global FITS header; for others, it is
             found in the second header, which is the first data header.
 
-            For WF/PC and WFPC2, this attribute is derived from the value of MODE:
+            For WFPC and WFPC2, this attribute is derived from the value of MODE:
             - MODE = FULL -> binning_mode = 1
             - MODE = AREA -> binning_mode = 2
 
@@ -1173,7 +1172,7 @@
         <name>plate_scale</name>
         <version_id>1.0</version_id>
         <local_identifier>plate_scale</local_identifier>
-        <nillable_flag>false</nillable_flag>
+        <nillable_flag>true</nillable_flag>
         <submitter_name>Mark R. Showalter</submitter_name>
         <definition>
             This attribute indicates approximate spatial size of one pixel in the data
@@ -1181,11 +1180,66 @@
             the value of FITS keyword PLATESC. For other HST instruments, we provide the
             value if it can be readily determined. In cases where a product contains data
             from detectors with different plate scales, it is the smallest value. For
-            non-imaging instruments, the value is zero.
+            non-imaging instruments, this attribute is not applicable.
         </definition>
         <DD_Value_Domain>
             <enumeration_flag>false</enumeration_flag>
             <value_data_type>ASCII_Real</value_data_type>
+        </DD_Value_Domain>
+    </DD_Attribute>
+
+<!-- Attribute mast_pipeline_version_id -->
+    <DD_Attribute>
+        <name>mast_pipeline_version_id</name>
+        <version_id>1.0</version_id>
+        <local_identifier>mast_pipeline_version_id</local_identifier>
+        <nillable_flag>true</nillable_flag>
+        <submitter_name>Mark R. Showalter</submitter_name>
+        <definition>
+            The value of keyword "OPUS_VER" found in the FITS header, if any. It is updated
+            when data files are re-calibrated. This attribute is often missing from older
+            data products.
+        </definition>
+        <DD_Value_Domain>
+            <enumeration_flag>false</enumeration_flag>
+            <value_data_type>ASCII_Short_String_Collapsed</value_data_type>
+        </DD_Value_Domain>
+    </DD_Attribute>
+
+<!-- Attribute hst_quality_id -->
+    <DD_Attribute>
+        <name>hst_quality_id</name>
+        <version_id>1.0</version_id>
+        <local_identifier>hst_quality_id</local_identifier>
+        <nillable_flag>true</nillable_flag>
+        <submitter_name>Mark R. Showalter</submitter_name>
+        <definition>
+            Data quality summary found in the FITS header of the data product, which can
+            be populated by the HST pipeline if there are problems with the exposure.
+            Possible values include "OK", "GSFAIL", "EXPSHORT", and "TDF-DOWN". If multiple
+            values are provided, they are separated by semicolons.
+        </definition>
+        <DD_Value_Domain>
+            <enumeration_flag>false</enumeration_flag>
+            <value_data_type>ASCII_Short_String_Collapsed</value_data_type>
+        </DD_Value_Domain>
+    </DD_Attribute>
+
+<!-- Attribute hst_quality_comment -->
+    <DD_Attribute>
+        <name>hst_quality_comment</name>
+        <version_id>1.0</version_id>
+        <local_identifier>hst_quality_comment</local_identifier>
+        <nillable_flag>true</nillable_flag>
+        <submitter_name>Mark R. Showalter</submitter_name>
+        <definition>
+            Data quality comments found in the FITS header of the data product. This
+            attribute is filled in by the HST pipeline is populated if there are problems
+            with the exposure.
+        </definition>
+        <DD_Value_Domain>
+            <enumeration_flag>false</enumeration_flag>
+            <value_data_type>ASCII_Short_String_Collapsed</value_data_type>
         </DD_Value_Domain>
     </DD_Attribute>
 
@@ -1217,6 +1271,13 @@
 
         <DD_Association>
             <identifier_reference>hst_pi_name</identifier_reference>
+            <reference_type>attribute_of</reference_type>
+            <minimum_occurrences>1</minimum_occurrences>
+            <maximum_occurrences>1</maximum_occurrences>
+        </DD_Association>
+
+        <DD_Association>
+            <identifier_reference>visit_id</identifier_reference>
             <reference_type>attribute_of</reference_type>
             <minimum_occurrences>1</minimum_occurrences>
             <maximum_occurrences>1</maximum_occurrences>
@@ -1291,7 +1352,7 @@
         </DD_Association>
 
         <DD_Association>
-            <identifier_reference>moving_target_keywords</identifier_reference>
+            <identifier_reference>moving_target_keyword</identifier_reference>
             <reference_type>attribute_of</reference_type>
             <minimum_occurrences>1</minimum_occurrences>
             <maximum_occurrences>4</maximum_occurrences>
@@ -1490,6 +1551,37 @@
         </DD_Association>
     </DD_Class>
 
+    <DD_Class>
+        <name>Processing_Parameters</name>
+        <version_id>1.0</version_id>
+        <local_identifier>Processing_Parameters</local_identifier>
+        <submitter_name>Mark R. Showalter</submitter_name>
+        <definition>
+            Contains attributes related to the processing of the data after receipt.
+        </definition>
+        <abstract_flag>false</abstract_flag>
+
+        <DD_Association>
+            <identifier_reference>mast_pipeline_version_id</identifier_reference>
+            <reference_type>attribute_of</reference_type>
+            <minimum_occurrences>1</minimum_occurrences>
+            <maximum_occurrences>1</maximum_occurrences>
+        </DD_Association>
+
+        <DD_Association>
+            <identifier_reference>hst_quality_id</identifier_reference>
+            <reference_type>attribute_of</reference_type>
+            <minimum_occurrences>1</minimum_occurrences>
+            <maximum_occurrences>1</maximum_occurrences>
+        </DD_Association>
+
+        <DD_Association>
+            <identifier_reference>hst_quality_comment</identifier_reference>
+            <reference_type>attribute_of</reference_type>
+            <minimum_occurrences>1</minimum_occurrences>
+            <maximum_occurrences>1</maximum_occurrences>
+        </DD_Association>
+
 <!-- HST Parameter class -->
 
     <DD_Class>
@@ -1547,6 +1639,13 @@
 
         <DD_Association>
             <identifier_reference>Operational_Parameters</identifier_reference>
+            <reference_type>component_of</reference_type>
+            <minimum_occurrences>1</minimum_occurrences>
+            <maximum_occurrences>1</maximum_occurrences>
+        </DD_Association>
+
+        <DD_Association>
+            <identifier_reference>Processing_Parameters</identifier_reference>
             <reference_type>component_of</reference_type>
             <minimum_occurrences>1</minimum_occurrences>
             <maximum_occurrences>1</maximum_occurrences>
