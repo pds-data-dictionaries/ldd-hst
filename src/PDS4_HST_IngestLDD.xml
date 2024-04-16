@@ -1,23 +1,27 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<?xml-model href="https://pds.nasa.gov/pds4/pds/v1/PDS4_PDS_1F00.sch"?>
+<?xml-model href="https://pds.nasa.gov/pds4/pds/v1/PDS4_PDS_1H00.sch"?>
 
-<Ingest_LDD
- xmlns="http://pds.nasa.gov/pds4/pds/v1"
- xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
- xsi:schemaLocation="http://pds.nasa.gov/pds4/pds/v1
-                     https://pds.nasa.gov/pds4/pds/v1/PDS4_PDS_1F00.xsd">
+<Ingest_LDD 
+  xmlns="http://pds.nasa.gov/pds4/pds/v1"
+  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xmlns:pds="http://pds.nasa.gov/pds4/pds/v1"
+  xsi:schemaLocation="http://pds.nasa.gov/pds4/pds/v1
+                      https://pds.nasa.gov/pds4/pds/v1/PDS4_PDS_1H00.xsd">
 
-    <name>Hubble Space Telescope Dictionary Full</name>
+    <name>Hubble Space Telescope Mission Dictionary</name>
     <ldd_version_id>1.0</ldd_version_id>
-    <dictionary_type>Discipline</dictionary_type>
-    <full_name>Mark R. Showalter</full_name>
+    <dictionary_type>Mission</dictionary_type>
+    <full_name>Matthew S. Tiscareno</full_name>
     <steward_id>rings</steward_id>
     <namespace_id>hst</namespace_id>
     <comment>
-        version 1.0  2022-10-06
-        - Initial version
+      Note: Several pre-release versions are tagged within the ldd-hst repo on GitHub.
+      These were written between 2020 and 2024 by Mark Showalter and Mitch Gordon.
+      
+      version 1.0  2024-04-15
+      - Initial release version
     </comment>
-    <last_modification_date_time>2022-10-06T202:00:00</last_modification_date_time>
+    <last_modification_date_time>2024-04-15</last_modification_date_time>
 
 <!--      Observing program attributes     -->
 
@@ -643,8 +647,8 @@
             These values are obtained from the FITS header of the _shf.fits or _spt.fits
             file, given as values of keywords TARKEY1, TARKEY2, etc.
 
-            If no TARKEY keywords appear in the FITS header, this attribute has a single
-            value of "Not applicable".
+            If no TARKEY keywords appear in the FITS header, this attribute should be nil
+            with nilReason = "inapplicable".
         </definition>
         <DD_Value_Domain>
             <enumeration_flag>false</enumeration_flag>
@@ -672,8 +676,8 @@
             or _spt.fits file. They are the values of FITS keywords MT_LV_1, MT_LV_2, etc.
             Consult with HST documentation for detailed interpretations.
 
-            If no MT_LV keywords appear in the FITS header, this attribute has a single
-            value of "Not applicable".
+            If no MT_LV keywords appear in the FITS header, this attribute should be nil
+            with nilReason = "inapplicable".
         </definition>
         <DD_Value_Domain>
             <enumeration_flag>false</enumeration_flag>
@@ -694,7 +698,7 @@
             instrument-specific; see the relevant HST Instrument Handbooks and Data
             Handbooks for further details.
 
-            This attribute is not applicable to FOC data.
+            For FOC data, this attribute should be nil with nilReason = "inapplicable".
         </definition>
         <DD_Value_Domain>
             <enumeration_flag>false</enumeration_flag>
@@ -716,7 +720,7 @@
             PROPAPER is missing or has a blank value, the value of FITS keyword APERTURE is
             used instead.
 
-            This attribute is not applicable to FOC data.
+            For FOC data, this attribute should be nil with nilReason = "inapplicable".
         </definition>
         <DD_Value_Domain>
             <enumeration_flag>false</enumeration_flag>
@@ -942,7 +946,7 @@
             10,000 to convert units from Angstroms to microns. The value is not provided for
             other HST instruments.
 
-            For other HST instruments, this attribute is not applicable.
+            For other HST instruments, this attribute should be nil with nilReason = "inapplicable".
         </definition>
         <DD_Value_Domain>
             <enumeration_flag>false</enumeration_flag>
@@ -964,7 +968,7 @@
             convert units from Angstroms to microns. The value is not provided for other HST
             instruments.
 
-            For other HST instruments, this attribute is not applicable.
+            For other HST instruments, this attribute should be nil with nilReason = "inapplicable".
         </definition>
         <DD_Value_Domain>
             <enumeration_flag>false</enumeration_flag>
@@ -985,7 +989,7 @@
             data files, this is the value of FITS keyword SPECRES, divided by 10,000 to
             convert units from Angstroms to microns.
 
-            For other HST instruments, this attribute is not applicable.
+            For other HST instruments, this attribute should be nil with nilReason = "inapplicable".
         </definition>
         <DD_Value_Domain>
             <enumeration_flag>false</enumeration_flag>
@@ -1008,7 +1012,7 @@
             value of FITS keyword OBSMODE. Consult the relevant HST handbooks for details
             about each mode.
 
-            This attribute is not applicable to FGS data files.
+            For FGS data files, this attribute should be nil with nilReason = "inapplicable".
         </definition>
         <DD_Value_Domain>
             <enumeration_flag>false</enumeration_flag>
@@ -1031,8 +1035,8 @@
 
             For ACS, STIS, and WFC3, it is the value of FITS keyword CCDGAIN.
 
-            This attribute is not applicable to HST instruments that do not have gain
-            settings.
+            For FGS data files and for HST instruments that do not have gain settings,
+	    this attribute should be nil with nilReason = "inapplicable".
         </definition>
         <DD_Value_Domain>
             <enumeration_flag>false</enumeration_flag>
@@ -1179,8 +1183,9 @@
             product, in units of arcseconds per pixel. For a few HST data products, this is
             the value of FITS keyword PLATESC. For other HST instruments, we provide the
             value if it can be readily determined. In cases where a product contains data
-            from detectors with different plate scales, it is the smallest value. For
-            non-imaging instruments, this attribute is not applicable.
+            from detectors with different plate scales, it is the smallest value.
+
+            For non-imaging instruments, this attribute should be nil with nilReason = "inapplicable".
         </definition>
         <DD_Value_Domain>
             <enumeration_flag>false</enumeration_flag>
@@ -1197,8 +1202,10 @@
         <submitter_name>Mark R. Showalter</submitter_name>
         <definition>
             The value of keyword "OPUS_VER" found in the FITS header, if any. It is updated
-            when data files are re-calibrated. This attribute is often missing from older
-            data products.
+            when data files are re-calibrated.
+
+	    This attribute is often missing from older data products. In such cases, this
+	    attribute should be nil with nilReason = "missing".
         </definition>
         <DD_Value_Domain>
             <enumeration_flag>false</enumeration_flag>
@@ -1581,7 +1588,8 @@
             <minimum_occurrences>1</minimum_occurrences>
             <maximum_occurrences>1</maximum_occurrences>
         </DD_Association>
-
+    </DD_Class>
+    
 <!-- HST Parameter class -->
 
     <DD_Class>
@@ -1590,7 +1598,7 @@
         <local_identifier>HST_Parameters</local_identifier>
         <submitter_name>Mark R. Showalter</submitter_name>
         <definition>
-            Contains all HST-specific parameters.
+            Contains parameters specific to the Hubble Space Telescope.
         </definition>
         <abstract_flag>false</abstract_flag>
         <element_flag>true</element_flag>
