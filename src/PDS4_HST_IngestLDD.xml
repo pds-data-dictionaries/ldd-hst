@@ -1250,7 +1250,7 @@
         </DD_Value_Domain>
     </DD_Attribute>
 
-<!--      Observing program attributes     -->
+<!--      Observing program class     -->
 
     <DD_Class>
         <name>Program_Parameters</name>
@@ -1291,7 +1291,7 @@
         </DD_Association>
     </DD_Class>
 
-<!--      Instrument attributes     -->
+<!--      Instrument class     -->
 
     <DD_Class>
         <name>Instrument_Parameters</name>
@@ -1332,7 +1332,7 @@
         </DD_Association>
     </DD_Class>
 
-<!--      Pointing attributes     -->
+<!--      Pointing class     -->
 
     <DD_Class>
         <name>Pointing_Parameters</name>
@@ -1394,7 +1394,7 @@
         </DD_Association>
     </DD_Class>
 
-<!--      Tracking attributes     -->
+<!--      Tracking class     -->
 
     <DD_Class>
         <name>Tracking_Parameters</name>
@@ -1421,7 +1421,7 @@
         </DD_Association>
     </DD_Class>
 
-<!--      Exposure attributes     -->
+<!--      Exposure class     -->
 
     <DD_Class>
         <name>Exposure_Parameters</name>
@@ -1448,7 +1448,7 @@
         </DD_Association>
     </DD_Class>
 
-<!--      Wavelength/filter/grating attributes     -->
+<!--      Wavelength/filter/grating class     -->
 
     <DD_Class>
         <name>Wavelength_Filter_Grating_Parameters</name>
@@ -1489,7 +1489,7 @@
         </DD_Association>
     </DD_Class>
 
-<!--      Operational attributes     -->
+<!--      Operational class     -->
 
     <DD_Class>
         <name>Operational_Parameters</name>
@@ -1557,6 +1557,8 @@
             <maximum_occurrences>1</maximum_occurrences>
         </DD_Association>
     </DD_Class>
+
+<!--      Processing class     -->
 
     <DD_Class>
         <name>Processing_Parameters</name>
