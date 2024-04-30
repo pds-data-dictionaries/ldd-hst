@@ -7,7 +7,7 @@ Configuration:
    LDD Discipline (T/F):  false
    LDD Namespace URL:     http://pds.nasa.gov/pds4/
    LDD URN Prefix:        urn:nasa:pds:
-   Time                   Sat Apr 27 17:13:03 UTC 2024
+   Time                   Tue Apr 30 13:00:12 UTC 2024
    Common Schema          [PDS4_PDS_1H00.xsd]
    Common Schematron      [PDS4_PDS_1H00.sch]
    IM Version Id:         1.17.0.0
@@ -84,7 +84,7 @@ Parsed Input - Attributes:
    name                   channel_id
    version                1.17
    value data type        ASCII_Short_String_Collapsed
-   description             An abbreviated name or acronym for the specific channel of the HST instrument used for this observation. Here, "channel" refers to a distinct optical path used by one or more of the instrument's detectors. For HST instruments, such as WFPC2, that do not have multiple channels, this attribute has the same value as the instrument_id attribute. 
+   description             An abbreviated name or acronym for the specific channel of the HST instrument used for this observation. Here, "channel" refers to a distinct optical path used by one or more of the instrument's detectors. For HST instruments that do not have multiple channels, such as WFPC2, this attribute has the same value as the instrument_id attribute. 
 
    name                   detector_id
    version                1.17
@@ -94,7 +94,7 @@ Parsed Input - Attributes:
    name                   observation_type
    version                1.17
    value data type        ASCII_Short_String_Collapsed
-   description             The type of the observation. For most HST data files, this is the value of FITS keyword OBSTYPE, either IMAGING or SPECTROSCOPIC. IMAGING indicates that a 2-D image with two spatial axes was obtained. SPECTROSCOPIC indicates that one of the axes of the data array is related to wavelength. TIME-SERIES indicates a data array in which the primary axis sampling is by time. The FITS keyword OBSTYPE does not appear in some data products. However, several instruments produce only one type of observation. Observations from ACS, NICMOS, WFC3, WFPC, and WFPC2 are always IMAGES; observations from COS, FOS, and GHRS are always SPECTROSCOPIC. For ACS/HRC, the FITS keyword OBSTYPE can have a value of CORONAGRAPHIC. However, the value of this attribute is IMAGING; the coronagraph_flag attribute indicates whether the coronagraph was used. 
+   description             The type of the observation: one of IMAGING, SPECTROSCOPIC, or TIME-SERIES. IMAGING indicates that a 2-D image with two spatial axes was obtained. SPECTROSCOPIC indicates that one of the axes of the data array is related to wavelength. TIME-SERIES indicates that one of the axes is sampling time. For many HST data files, this is the value of FITS keyword OBSTYPE. Where OBSTYPE does not appear, this value depends on other information. - All ACS, NICMOS, WFC3, WFPC, and WFPC2 observations are IMAGING. - All COS, FOS, and GHRS observations are SPECTROSCOPIC. - All HSP observations are TIME-SERIES. - For FOC, the observation_type depends on the value of FITS keyword OPMODE: IMAGING if OPMODE is "ACQ" or "IMAGE"; TIME-SERIES of OPMODE is "OCC"; SPECTROSCOPIC if OPMODE is "SPEC". Note that, for ACS/HRC, the FITS keyword OBSTYPE can have a value of CORONAGRAPHIC. In such cases, the value of this attribute is IMAGING and the coronagraph_flag attribute indicates whether the coronagraph was used. 
 
    name                   hst_target_name
    version                1.17
@@ -105,7 +105,6 @@ Parsed Input - Attributes:
    version                1.17
    value data type        ASCII_Boolean
    description             A Boolean flag (true, false) indicating whether or not the telescope pointing was based on tracking a moving target. For HST data files, this is derived from the value of FITS keyword MTFLAG, which can have values of 1 or "T" for true or 0, "F", or "" for false. 
-   nillable               true
 
    name                   moving_target_keyword
    version                1.17
@@ -200,7 +199,7 @@ Parsed Input - Attributes:
    name                   coronagraph_flag
    version                1.17
    value data type        ASCII_Boolean
-   description             A Boolean flag (true, false) indicating whether a coronagraph was used for this observation. For HST products, this attribute is generally derived from the value of the FITS keyword APERTURE. For ACS/HRC products, the coronagraph is in use if APERTURE is HRC-CORON1.8, HRC-CORON3.0, or HRC-OCCULT0.8. For STIS products, a coronagraph is in use if APERTURE is 52X0.2F1, 52X0.2F1-R, 50CORON, or begins with either "BAR" or "WEDGE". For NICMOS/NIC2 products, a coronagraph is in use if APERTURE is NIC2-CORON. This attribute is always false for HST instruments that do not have a coronagraph. 
+   description             A Boolean flag (true, false) indicating whether a coronagraph was used for this observation. For HST products, this attribute is generally derived from the value of the FITS keyword APERTURE. For ACS/HRC products, the coronagraph is in use if APERTURE is HRC-CORON1.8, HRC-CORON3.0, or HRC-OCCULT0.8. This also corresponds to the FITS keyword OBSTYPE being set to CORONAGRAPHIC. For STIS products, a coronagraph is in use if APERTURE is 52X0.2F1, 52X0.2F1-R, 50CORON, or begins with either "BAR" or "WEDGE". For NICMOS/NIC2 products, a coronagraph is in use if APERTURE is NIC2-CORON. This attribute is always false for HST instruments that do not have a coronagraph. 
 
    name                   cosmic_ray_split_count
    version                1.17
@@ -240,13 +239,13 @@ Parsed Input - Attributes:
    name                   hst_quality_id
    version                1.17
    value data type        ASCII_Short_String_Collapsed
-   description             Data quality summary found in the FITS header of the data product, which can be populated by the HST pipeline if there are problems with the exposure. Possible values include "OK", "GSFAIL", "EXPSHORT", and "TDF-DOWN". If multiple values are provided, they are separated by semicolons. 
+   description             Data quality summary found in the FITS header of the data product, which can be populated by the HST pipeline if there are problems with the exposure. Possible values include "OK", "GSFAIL", "EXPSHORT", and "TDF-DOWN". If multiple values are provided, they are separated by semicolons. This attribute may be missing from older data products. In such cases, this attribute should be nil with nilReason = "missing". 
    nillable               true
 
    name                   hst_quality_comment
    version                1.17
    value data type        ASCII_Short_String_Collapsed
-   description             Data quality comments found in the FITS header of the data product. This attribute is filled in by the HST pipeline is populated if there are problems with the exposure. 
+   description             Data quality comments found in the FITS header of the data product. This attribute is filled in by the HST pipeline is populated if there are problems with the exposure. This attribute may be missing from older data products. In such cases, this attribute should be nil with nilReason = "missing". 
    nillable               true
 
 Parsed Input - Classes:

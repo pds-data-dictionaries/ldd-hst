@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-  <!-- PDS4 XML/Schema for Name Space Id:hst  Version:1.0.0.0 - Sat Apr 27 17:13:03 UTC 2024 -->
+  <!-- PDS4 XML/Schema for Name Space Id:hst  Version:1.0.0.0 - Tue Apr 30 13:00:12 UTC 2024 -->
   <!-- Generated from the PDS4 Information Model Version 1.17.0.0 - System Build 12.0 -->
   <!-- *** This PDS4 product schema is an operational deliverable. *** -->
   <!--                                                                           -->
@@ -102,7 +102,7 @@
     </xs:annotation>
     <xs:sequence>
       <xs:element name="hst_target_name" type="hst:hst_target_name" minOccurs="1" maxOccurs="1"> </xs:element>
-      <xs:element name="moving_target_flag" nillable="true" type="hst:moving_target_flag" minOccurs="1" maxOccurs="1"> </xs:element>
+      <xs:element name="moving_target_flag" type="hst:moving_target_flag" minOccurs="1" maxOccurs="1"> </xs:element>
       <xs:element name="moving_target_keyword" nillable="true" type="hst:moving_target_keyword" minOccurs="1" maxOccurs="4"> </xs:element>
       <xs:element name="moving_target_description" nillable="true" type="hst:moving_target_description" minOccurs="1" maxOccurs="4"> </xs:element>
       <xs:element name="aperture_name" nillable="true" type="hst:aperture_name" minOccurs="1" maxOccurs="1"> </xs:element>
@@ -265,10 +265,9 @@
       <xs:documentation> An abbreviated name or acronym for the specific
         channel of the HST instrument used for this observation. Here,
         "channel" refers to a distinct optical path used by one or more
-        of the instrument's detectors. For HST instruments, such as
-        WFPC2, that do not have multiple channels, this attribute has
-        the same value as the instrument_id attribute.
-        </xs:documentation>
+        of the instrument's detectors. For HST instruments that do not
+        have multiple channels, such as WFPC2, this attribute has the
+        same value as the instrument_id attribute. </xs:documentation>
     </xs:annotation>
     <xs:restriction base="pds:ASCII_Short_String_Collapsed">
      <xs:minLength value="1"/>
@@ -283,11 +282,13 @@
         this attribute is generally derived from the value of the FITS
         keyword APERTURE. For ACS/HRC products, the coronagraph is in
         use if APERTURE is HRC-CORON1.8, HRC-CORON3.0, or HRC-OCCULT0.8.
-        For STIS products, a coronagraph is in use if APERTURE is
-        52X0.2F1, 52X0.2F1-R, 50CORON, or begins with either "BAR" or
-        "WEDGE". For NICMOS/NIC2 products, a coronagraph is in use if
-        APERTURE is NIC2-CORON. This attribute is always false for HST
-        instruments that do not have a coronagraph. </xs:documentation>
+        This also corresponds to the FITS keyword OBSTYPE being set to
+        CORONAGRAPHIC. For STIS products, a coronagraph is in use if
+        APERTURE is 52X0.2F1, 52X0.2F1-R, 50CORON, or begins with either
+        "BAR" or "WEDGE". For NICMOS/NIC2 products, a coronagraph is in
+        use if APERTURE is NIC2-CORON. This attribute is always false
+        for HST instruments that do not have a coronagraph.
+        </xs:documentation>
     </xs:annotation>
     <xs:restriction base="pds:ASCII_Boolean">
 	   </xs:restriction>
@@ -491,6 +492,8 @@
       <xs:documentation> Data quality comments found in the FITS header
         of the data product. This attribute is filled in by the HST
         pipeline is populated if there are problems with the exposure.
+        This attribute may be missing from older data products. In such
+        cases, this attribute should be nil with nilReason = "missing".
         </xs:documentation>
     </xs:annotation>
     <xs:simpleContent>
@@ -506,7 +509,9 @@
         of the data product, which can be populated by the HST pipeline
         if there are problems with the exposure. Possible values include
         "OK", "GSFAIL", "EXPSHORT", and "TDF-DOWN". If multiple values
-        are provided, they are separated by semicolons.
+        are provided, they are separated by semicolons. This attribute
+        may be missing from older data products. In such cases, this
+        attribute should be nil with nilReason = "missing".
         </xs:documentation>
     </xs:annotation>
     <xs:simpleContent>
@@ -623,7 +628,7 @@
     </xs:simpleContent>
   </xs:complexType>
 
-  <xs:complexType name="moving_target_flag">
+  <xs:simpleType name="moving_target_flag">
     <xs:annotation>
       <xs:documentation> A Boolean flag (true, false) indicating whether
         or not the telescope pointing was based on tracking a moving
@@ -631,12 +636,9 @@
         FITS keyword MTFLAG, which can have values of 1 or "T" for true
         or 0, "F", or "" for false. </xs:documentation>
     </xs:annotation>
-    <xs:simpleContent>
-      <xs:extension base="pds:ASCII_Boolean">
-        <xs:attribute name="nilReason" type="pds:nil_reason" use="optional" />
-      </xs:extension>
-    </xs:simpleContent>
-  </xs:complexType>
+    <xs:restriction base="pds:ASCII_Boolean">
+	   </xs:restriction>
+  </xs:simpleType>
 
   <xs:complexType name="moving_target_keyword">
     <xs:annotation>
@@ -659,20 +661,23 @@
 
   <xs:simpleType name="observation_type">
     <xs:annotation>
-      <xs:documentation> The type of the observation. For most HST data
-        files, this is the value of FITS keyword OBSTYPE, either IMAGING
-        or SPECTROSCOPIC. IMAGING indicates that a 2-D image with two
-        spatial axes was obtained. SPECTROSCOPIC indicates that one of
-        the axes of the data array is related to wavelength. TIME-SERIES
-        indicates a data array in which the primary axis sampling is by
-        time. The FITS keyword OBSTYPE does not appear in some data
-        products. However, several instruments produce only one type of
-        observation. Observations from ACS, NICMOS, WFC3, WFPC, and
-        WFPC2 are always IMAGES; observations from COS, FOS, and GHRS
-        are always SPECTROSCOPIC. For ACS/HRC, the FITS keyword OBSTYPE
-        can have a value of CORONAGRAPHIC. However, the value of this
-        attribute is IMAGING; the coronagraph_flag attribute indicates
-        whether the coronagraph was used. </xs:documentation>
+      <xs:documentation> The type of the observation: one of IMAGING,
+        SPECTROSCOPIC, or TIME-SERIES. IMAGING indicates that a 2-D
+        image with two spatial axes was obtained. SPECTROSCOPIC
+        indicates that one of the axes of the data array is related to
+        wavelength. TIME-SERIES indicates that one of the axes is
+        sampling time. For many HST data files, this is the value of
+        FITS keyword OBSTYPE. Where OBSTYPE does not appear, this value
+        depends on other information. - All ACS, NICMOS, WFC3, WFPC, and
+        WFPC2 observations are IMAGING. - All COS, FOS, and GHRS
+        observations are SPECTROSCOPIC. - All HSP observations are
+        TIME-SERIES. - For FOC, the observation_type depends on the
+        value of FITS keyword OPMODE: IMAGING if OPMODE is "ACQ" or
+        "IMAGE"; TIME-SERIES of OPMODE is "OCC"; SPECTROSCOPIC if OPMODE
+        is "SPEC". Note that, for ACS/HRC, the FITS keyword OBSTYPE can
+        have a value of CORONAGRAPHIC. In such cases, the value of this
+        attribute is IMAGING and the coronagraph_flag attribute
+        indicates whether the coronagraph was used. </xs:documentation>
     </xs:annotation>
     <xs:restriction base="pds:ASCII_Short_String_Collapsed">
      <xs:minLength value="1"/>
