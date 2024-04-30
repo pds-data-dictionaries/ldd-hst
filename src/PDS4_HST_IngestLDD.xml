@@ -191,8 +191,8 @@
             used for this observation. Here, "channel" refers to a distinct optical path
             used by one or more of the instrument's detectors.
 
-            For HST instruments, such as WFPC2, that do not have multiple channels, this
-            attribute has the same value as the instrument_id attribute.
+	    For HST instruments that do not have multiple channels, such as WFPC2, this
+	    attribute has the same value as the instrument_id attribute.
         </definition>
         <DD_Value_Domain>
             <enumeration_flag>true</enumeration_flag>
@@ -552,20 +552,23 @@
         <nillable_flag>false</nillable_flag>
         <submitter_name>Mark R. Showalter</submitter_name>
         <definition>
-            The type of the observation. For most HST data files, this is the value of FITS
-            keyword OBSTYPE, either IMAGING or SPECTROSCOPIC. IMAGING indicates that a 2-D
-            image with two spatial axes was obtained. SPECTROSCOPIC indicates that one of
-            the axes of the data array is related to wavelength. TIME-SERIES indicates a data
-            array in which the primary axis sampling is by time.
+	    The type of the observation: one of IMAGING, SPECTROSCOPIC, or TIME-SERIES.
+            IMAGING indicates that a 2-D image with two spatial axes was obtained.
+            SPECTROSCOPIC indicates that one of the axes of the data array is related to
+            wavelength. TIME-SERIES indicates that one of the axes is sampling time.
 
-            The FITS keyword OBSTYPE does not appear in some data products. However, several
-            instruments produce only one type of observation. Observations from ACS, NICMOS,
-            WFC3, WFPC, and WFPC2 are always IMAGES; observations from COS, FOS, and GHRS
-            are always SPECTROSCOPIC.
+            For many HST data files, this is the value of FITS keyword OBSTYPE. Where
+            OBSTYPE does not appear, this value depends on other information.
+            - All ACS, NICMOS, WFC3, WFPC, and WFPC2 observations are IMAGING.
+            - All COS, FOS, and GHRS observations are SPECTROSCOPIC.
+            - All HSP observations are TIME-SERIES.
+            - For FOC, the observation_type depends on the value of FITS keyword OPMODE:
+              IMAGING if OPMODE is "ACQ" or "IMAGE"; TIME-SERIES of OPMODE is "OCC";
+              SPECTROSCOPIC if OPMODE is "SPEC".
 
-            For ACS/HRC, the FITS keyword OBSTYPE can have a value of CORONAGRAPHIC.
-            However, the value of this attribute is IMAGING; the coronagraph_flag attribute
-            indicates whether the coronagraph was used.
+            Note that, for ACS/HRC, the FITS keyword OBSTYPE can have a value of
+            CORONAGRAPHIC. In such cases, the value of this attribute is IMAGING and the
+            coronagraph_flag attribute indicates whether the coronagraph was used.
         </definition>
         <DD_Value_Domain>
             <enumeration_flag>true</enumeration_flag>
@@ -617,7 +620,7 @@
         <name>moving_target_flag</name>
         <version_id>1.0</version_id>
         <local_identifier>moving_target_flag</local_identifier>
-        <nillable_flag>true</nillable_flag>
+        <nillable_flag>false</nillable_flag>
         <submitter_name>Mark R. Showalter</submitter_name>
         <definition>
             A Boolean flag (true, false) indicating whether or not the telescope pointing
@@ -1057,7 +1060,8 @@
             of the FITS keyword APERTURE.
 
             For ACS/HRC products, the coronagraph is in use if APERTURE is HRC-CORON1.8,
-            HRC-CORON3.0, or HRC-OCCULT0.8.
+            HRC-CORON3.0, or HRC-OCCULT0.8.  This also corresponds to the FITS keyword OBSTYPE
+	    being set to CORONAGRAPHIC.
 
             For STIS products, a coronagraph is in use if APERTURE is 52X0.2F1, 52X0.2F1-R,
             50CORON, or begins with either "BAR" or "WEDGE".
@@ -1225,6 +1229,9 @@
             be populated by the HST pipeline if there are problems with the exposure.
             Possible values include "OK", "GSFAIL", "EXPSHORT", and "TDF-DOWN". If multiple
             values are provided, they are separated by semicolons.
+
+	    This attribute may be missing from older data products. In such cases, this
+	    attribute should be nil with nilReason = "missing".
         </definition>
         <DD_Value_Domain>
             <enumeration_flag>false</enumeration_flag>
@@ -1243,6 +1250,9 @@
             Data quality comments found in the FITS header of the data product. This
             attribute is filled in by the HST pipeline is populated if there are problems
             with the exposure.
+
+	    This attribute may be missing from older data products. In such cases, this
+	    attribute should be nil with nilReason = "missing".
         </definition>
         <DD_Value_Domain>
             <enumeration_flag>false</enumeration_flag>
