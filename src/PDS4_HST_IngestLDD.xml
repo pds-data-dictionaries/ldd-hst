@@ -1,23 +1,27 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<?xml-model href="https://pds.nasa.gov/pds4/pds/v1/PDS4_PDS_1F00.sch"?>
+<?xml-model href="https://pds.nasa.gov/pds4/pds/v1/PDS4_PDS_1H00.sch"?>
 
-<Ingest_LDD
- xmlns="http://pds.nasa.gov/pds4/pds/v1"
- xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
- xsi:schemaLocation="http://pds.nasa.gov/pds4/pds/v1
-                     https://pds.nasa.gov/pds4/pds/v1/PDS4_PDS_1F00.xsd">
+<Ingest_LDD 
+  xmlns="http://pds.nasa.gov/pds4/pds/v1"
+  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xmlns:pds="http://pds.nasa.gov/pds4/pds/v1"
+  xsi:schemaLocation="http://pds.nasa.gov/pds4/pds/v1
+                      https://pds.nasa.gov/pds4/pds/v1/PDS4_PDS_1H00.xsd">
 
-    <name>Hubble Space Telescope Dictionary Full</name>
+    <name>Hubble Space Telescope Mission Dictionary</name>
     <ldd_version_id>1.0</ldd_version_id>
-    <dictionary_type>Discipline</dictionary_type>
-    <full_name>Mark R. Showalter</full_name>
+    <dictionary_type>Mission</dictionary_type>
+    <full_name>Matthew S. Tiscareno</full_name>
     <steward_id>rings</steward_id>
     <namespace_id>hst</namespace_id>
     <comment>
-        version 1.0  2022-10-06
-        - Initial version
+      Note: Several pre-release versions are tagged within the ldd-hst repo on GitHub.
+      These were written between 2020 and 2024 by Mark Showalter and Mitch Gordon.
+      
+      version 1.0  2024-04-15
+      - Initial release version
     </comment>
-    <last_modification_date_time>2022-10-06T202:00:00</last_modification_date_time>
+    <last_modification_date_time>2024-04-15</last_modification_date_time>
 
 <!--      Observing program attributes     -->
 
@@ -187,8 +191,8 @@
             used for this observation. Here, "channel" refers to a distinct optical path
             used by one or more of the instrument's detectors.
 
-            For HST instruments, such as WFPC2, that do not have multiple channels, this
-            attribute has the same value as the instrument_id attribute.
+	    For HST instruments that do not have multiple channels, such as WFPC2, this
+	    attribute has the same value as the instrument_id attribute.
         </definition>
         <DD_Value_Domain>
             <enumeration_flag>true</enumeration_flag>
@@ -548,20 +552,23 @@
         <nillable_flag>false</nillable_flag>
         <submitter_name>Mark R. Showalter</submitter_name>
         <definition>
-            The type of the observation. For most HST data files, this is the value of FITS
-            keyword OBSTYPE, either IMAGING or SPECTROSCOPIC. IMAGING indicates that a 2-D
-            image with two spatial axes was obtained. SPECTROSCOPIC indicates that one of
-            the axes of the data array is related to wavelength. TIME-SERIES indicates a data
-            array in which the primary axis sampling is by time.
+	    The type of the observation: one of IMAGING, SPECTROSCOPIC, or TIME-SERIES.
+            IMAGING indicates that a 2-D image with two spatial axes was obtained.
+            SPECTROSCOPIC indicates that one of the axes of the data array is related to
+            wavelength. TIME-SERIES indicates that one of the axes is sampling time.
 
-            The FITS keyword OBSTYPE does not appear in some data products. However, several
-            instruments produce only one type of observation. Observations from ACS, NICMOS,
-            WFC3, WFPC, and WFPC2 are always IMAGES; observations from COS, FOS, and GHRS
-            are always SPECTROSCOPIC.
+            For many HST data files, this is the value of FITS keyword OBSTYPE. Where
+            OBSTYPE does not appear, this value depends on other information.
+            - All ACS, NICMOS, WFC3, WFPC, and WFPC2 observations are IMAGING.
+            - All COS, FOS, and GHRS observations are SPECTROSCOPIC.
+            - All HSP observations are TIME-SERIES.
+            - For FOC, the observation_type depends on the value of FITS keyword OPMODE:
+              IMAGING if OPMODE is "ACQ" or "IMAGE"; TIME-SERIES of OPMODE is "OCC";
+              SPECTROSCOPIC if OPMODE is "SPEC".
 
-            For ACS/HRC, the FITS keyword OBSTYPE can have a value of CORONAGRAPHIC.
-            However, the value of this attribute is IMAGING; the coronagraph_flag attribute
-            indicates whether the coronagraph was used.
+            Note that, for ACS/HRC, the FITS keyword OBSTYPE can have a value of
+            CORONAGRAPHIC. In such cases, the value of this attribute is IMAGING and the
+            coronagraph_flag attribute indicates whether the coronagraph was used.
         </definition>
         <DD_Value_Domain>
             <enumeration_flag>true</enumeration_flag>
@@ -613,7 +620,7 @@
         <name>moving_target_flag</name>
         <version_id>1.0</version_id>
         <local_identifier>moving_target_flag</local_identifier>
-        <nillable_flag>true</nillable_flag>
+        <nillable_flag>false</nillable_flag>
         <submitter_name>Mark R. Showalter</submitter_name>
         <definition>
             A Boolean flag (true, false) indicating whether or not the telescope pointing
@@ -643,8 +650,8 @@
             These values are obtained from the FITS header of the _shf.fits or _spt.fits
             file, given as values of keywords TARKEY1, TARKEY2, etc.
 
-            If no TARKEY keywords appear in the FITS header, this attribute has a single
-            value of "Not applicable".
+            If no TARKEY keywords appear in the FITS header, this attribute should be nil
+            with nilReason = "inapplicable".
         </definition>
         <DD_Value_Domain>
             <enumeration_flag>false</enumeration_flag>
@@ -672,12 +679,12 @@
             or _spt.fits file. They are the values of FITS keywords MT_LV_1, MT_LV_2, etc.
             Consult with HST documentation for detailed interpretations.
 
-            If no MT_LV keywords appear in the FITS header, this attribute has a single
-            value of "Not applicable".
+            If no MT_LV keywords appear in the FITS header, this attribute should be nil
+            with nilReason = "inapplicable".
         </definition>
         <DD_Value_Domain>
             <enumeration_flag>false</enumeration_flag>
-            <value_data_type>ASCII_Short_String_Collapsed</value_data_type>
+            <value_data_type>ASCII_String</value_data_type>
         </DD_Value_Domain>
     </DD_Attribute>
 
@@ -694,7 +701,7 @@
             instrument-specific; see the relevant HST Instrument Handbooks and Data
             Handbooks for further details.
 
-            This attribute is not applicable to FOC data.
+            For FOC data, this attribute should be nil with nilReason = "inapplicable".
         </definition>
         <DD_Value_Domain>
             <enumeration_flag>false</enumeration_flag>
@@ -716,7 +723,7 @@
             PROPAPER is missing or has a blank value, the value of FITS keyword APERTURE is
             used instead.
 
-            This attribute is not applicable to FOC data.
+            For FOC data, this attribute should be nil with nilReason = "inapplicable".
         </definition>
         <DD_Value_Domain>
             <enumeration_flag>false</enumeration_flag>
@@ -942,7 +949,7 @@
             10,000 to convert units from Angstroms to microns. The value is not provided for
             other HST instruments.
 
-            For other HST instruments, this attribute is not applicable.
+            For other HST instruments, this attribute should be nil with nilReason = "inapplicable".
         </definition>
         <DD_Value_Domain>
             <enumeration_flag>false</enumeration_flag>
@@ -964,7 +971,7 @@
             convert units from Angstroms to microns. The value is not provided for other HST
             instruments.
 
-            For other HST instruments, this attribute is not applicable.
+            For other HST instruments, this attribute should be nil with nilReason = "inapplicable".
         </definition>
         <DD_Value_Domain>
             <enumeration_flag>false</enumeration_flag>
@@ -985,7 +992,7 @@
             data files, this is the value of FITS keyword SPECRES, divided by 10,000 to
             convert units from Angstroms to microns.
 
-            For other HST instruments, this attribute is not applicable.
+            For other HST instruments, this attribute should be nil with nilReason = "inapplicable".
         </definition>
         <DD_Value_Domain>
             <enumeration_flag>false</enumeration_flag>
@@ -1008,7 +1015,7 @@
             value of FITS keyword OBSMODE. Consult the relevant HST handbooks for details
             about each mode.
 
-            This attribute is not applicable to FGS data files.
+            For FGS data files, this attribute should be nil with nilReason = "inapplicable".
         </definition>
         <DD_Value_Domain>
             <enumeration_flag>false</enumeration_flag>
@@ -1031,8 +1038,8 @@
 
             For ACS, STIS, and WFC3, it is the value of FITS keyword CCDGAIN.
 
-            This attribute is not applicable to HST instruments that do not have gain
-            settings.
+            For FGS data files and for HST instruments that do not have gain settings,
+	    this attribute should be nil with nilReason = "inapplicable".
         </definition>
         <DD_Value_Domain>
             <enumeration_flag>false</enumeration_flag>
@@ -1053,7 +1060,8 @@
             of the FITS keyword APERTURE.
 
             For ACS/HRC products, the coronagraph is in use if APERTURE is HRC-CORON1.8,
-            HRC-CORON3.0, or HRC-OCCULT0.8.
+            HRC-CORON3.0, or HRC-OCCULT0.8.  This also corresponds to the FITS keyword OBSTYPE
+	    being set to CORONAGRAPHIC.
 
             For STIS products, a coronagraph is in use if APERTURE is 52X0.2F1, 52X0.2F1-R,
             50CORON, or begins with either "BAR" or "WEDGE".
@@ -1179,8 +1187,9 @@
             product, in units of arcseconds per pixel. For a few HST data products, this is
             the value of FITS keyword PLATESC. For other HST instruments, we provide the
             value if it can be readily determined. In cases where a product contains data
-            from detectors with different plate scales, it is the smallest value. For
-            non-imaging instruments, this attribute is not applicable.
+            from detectors with different plate scales, it is the smallest value.
+
+            For non-imaging instruments, this attribute should be nil with nilReason = "inapplicable".
         </definition>
         <DD_Value_Domain>
             <enumeration_flag>false</enumeration_flag>
@@ -1197,8 +1206,10 @@
         <submitter_name>Mark R. Showalter</submitter_name>
         <definition>
             The value of keyword "OPUS_VER" found in the FITS header, if any. It is updated
-            when data files are re-calibrated. This attribute is often missing from older
-            data products.
+            when data files are re-calibrated.
+
+	    This attribute is often missing from older data products. In such cases, this
+	    attribute should be nil with nilReason = "missing".
         </definition>
         <DD_Value_Domain>
             <enumeration_flag>false</enumeration_flag>
@@ -1218,6 +1229,9 @@
             be populated by the HST pipeline if there are problems with the exposure.
             Possible values include "OK", "GSFAIL", "EXPSHORT", and "TDF-DOWN". If multiple
             values are provided, they are separated by semicolons.
+
+	    This attribute may be missing from older data products. In such cases, this
+	    attribute should be nil with nilReason = "missing".
         </definition>
         <DD_Value_Domain>
             <enumeration_flag>false</enumeration_flag>
@@ -1236,6 +1250,9 @@
             Data quality comments found in the FITS header of the data product. This
             attribute is filled in by the HST pipeline is populated if there are problems
             with the exposure.
+
+	    This attribute may be missing from older data products. In such cases, this
+	    attribute should be nil with nilReason = "missing".
         </definition>
         <DD_Value_Domain>
             <enumeration_flag>false</enumeration_flag>
@@ -1243,7 +1260,7 @@
         </DD_Value_Domain>
     </DD_Attribute>
 
-<!--      Observing program attributes     -->
+<!--      Observing program class     -->
 
     <DD_Class>
         <name>Program_Parameters</name>
@@ -1284,7 +1301,7 @@
         </DD_Association>
     </DD_Class>
 
-<!--      Instrument attributes     -->
+<!--      Instrument class     -->
 
     <DD_Class>
         <name>Instrument_Parameters</name>
@@ -1325,7 +1342,7 @@
         </DD_Association>
     </DD_Class>
 
-<!--      Pointing attributes     -->
+<!--      Pointing class     -->
 
     <DD_Class>
         <name>Pointing_Parameters</name>
@@ -1387,7 +1404,7 @@
         </DD_Association>
     </DD_Class>
 
-<!--      Tracking attributes     -->
+<!--      Tracking class     -->
 
     <DD_Class>
         <name>Tracking_Parameters</name>
@@ -1414,7 +1431,7 @@
         </DD_Association>
     </DD_Class>
 
-<!--      Exposure attributes     -->
+<!--      Exposure class     -->
 
     <DD_Class>
         <name>Exposure_Parameters</name>
@@ -1441,7 +1458,7 @@
         </DD_Association>
     </DD_Class>
 
-<!--      Wavelength/filter/grating attributes     -->
+<!--      Wavelength/filter/grating class     -->
 
     <DD_Class>
         <name>Wavelength_Filter_Grating_Parameters</name>
@@ -1482,7 +1499,7 @@
         </DD_Association>
     </DD_Class>
 
-<!--      Operational attributes     -->
+<!--      Operational class     -->
 
     <DD_Class>
         <name>Operational_Parameters</name>
@@ -1551,6 +1568,8 @@
         </DD_Association>
     </DD_Class>
 
+<!--      Processing class     -->
+
     <DD_Class>
         <name>Processing_Parameters</name>
         <version_id>1.0</version_id>
@@ -1581,7 +1600,8 @@
             <minimum_occurrences>1</minimum_occurrences>
             <maximum_occurrences>1</maximum_occurrences>
         </DD_Association>
-
+    </DD_Class>
+    
 <!-- HST Parameter class -->
 
     <DD_Class>
@@ -1590,7 +1610,7 @@
         <local_identifier>HST_Parameters</local_identifier>
         <submitter_name>Mark R. Showalter</submitter_name>
         <definition>
-            Contains all HST-specific parameters.
+            Contains parameters specific to the Hubble Space Telescope.
         </definition>
         <abstract_flag>false</abstract_flag>
         <element_flag>true</element_flag>
