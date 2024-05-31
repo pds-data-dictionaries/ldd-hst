@@ -1,13 +1,13 @@
 PDS4 Local Data Dictionary Processing Report
 
 Configuration:
-   LDDTool Version        15.0.6
+   LDDTool Version        15.1.0
    LDD Version Id:        1.0
    LDD Label Version Id:  1.23
    LDD Discipline (T/F):  false
    LDD Namespace URL:     http://pds.nasa.gov/pds4/
    LDD URN Prefix:        urn:nasa:pds:
-   Time                   Tue Apr 30 13:00:12 UTC 2024
+   Time                   Fri May 31 03:54:28 UTC 2024
    Common Schema          [PDS4_PDS_1H00.xsd]
    Common Schematron      [PDS4_PDS_1H00.sch]
    IM Version Id:         1.17.0.0
@@ -15,7 +15,6 @@ Configuration:
    IM Label Version Id:   1.23
    IM Object Model        [UpperModel.pont]
    IM Data Dictionary     [dd11179.pins]
-   IM Configuration File  [MDPTNConfigClassDisp.xml]
    IM Glossary            [Glossary.pins]
    IM Document Spec       [DMDocument.pins]
 
@@ -114,7 +113,7 @@ Parsed Input - Attributes:
 
    name                   moving_target_description
    version                1.17
-   value data type        ASCII_Short_String_Collapsed
+   value data type        ASCII_String
    description             The detailed information used for targeting HST. This includes information about standard targets such as planets, satellites, and larger asteroids. It can also include information used to determine offsets from the center of these bodies. Here are some sample values of this attribute: STD = JUPITER STD = EUROPA TYPE=TORUS, LONG=90, LAT=0, RAD-3.98E05 They are obtained from the FITS header of an observation's associated _shf.fits or _spt.fits file. They are the values of FITS keywords MT_LV_1, MT_LV_2, etc. Consult with HST documentation for detailed interpretations. If no MT_LV keywords appear in the FITS header, this attribute should be nil with nilReason = "inapplicable". 
    nillable               true
 
