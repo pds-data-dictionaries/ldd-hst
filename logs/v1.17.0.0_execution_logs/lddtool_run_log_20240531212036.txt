@@ -1,0 +1,43 @@
+
+>>  INFO LDDTOOL Version: 15.1.0
+>>  INFO IM Version Id: 1.17.0.0
+>>  INFO IM Namespace Id: pds
+>>  INFO IM Label Version Id: 1.23
+>>  INFO Date: Fri May 31 21:20:37 UTC 2024
+>>  INFO PARENT_DIR: /tmp/lddtool-15.1.0/Data/
+
+>>> INFO Init:  - Config.Properties Namespace Id Found:hst
+>>> INFO Init:  - Config.Properties Namespace Id Using:hst
+>>> INFO Init:  - LDD Dictionary_Type is Mission
+>>> INFO Attribute: <instrument_id> - This local attribute has a duplicate in the PDS4 data dictionary.
+>>> INFO Attribute: <gyroscope_mode> - The default minimum value provided by the attribute's data type is being overridden with 2
+>>> INFO Attribute: <gyroscope_mode> - The default maximum value provided by the attribute's data type is being overridden with 3
+>>> INFO Attribute: <repeat_exposure_count> - The default minimum value provided by the attribute's data type is being overridden with 1
+>>> INFO Attribute: <binning_mode> - The default minimum value provided by the attribute's data type is being overridden with 1
+>>> INFO Attribute: <binning_mode> - The default maximum value provided by the attribute's data type is being overridden with 4
+>>> WARNING Attribute: <fine_guidance_sensor_lock_type> - The 'type' attribute must have at least one permissible value.
+>>> WARNING Attribute: <exposure_type> - The 'type' attribute must have at least one permissible value.
+
+ -- LDDTool Execution Summary --
+     2 warning(s)
+     0 error(s)
+     0 fatal error(s)
+
+Input:
+
+     - IM Version: 1H00
+     - PDS4 Flag: true
+     - LDD Flag: true
+     - IM Version: true
+     - Export JSON Flag: true
+
+     - Ingest LDD(s): /home/runner/work/ldd-hst/ldd-hst/src/PDS4_HST_IngestLDD.xml
+
+Output:
+
+     - ./PDS4_HST_1H00_1010.xsd
+     - ./PDS4_HST_1H00_1010.sch
+     - ./PDS4_HST_1H00_1010.xml
+     - ./export/JSON/PDS4_PDS_1H00.JSON
+
+>>  INFO Exit(0)

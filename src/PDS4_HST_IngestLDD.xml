@@ -1,15 +1,15 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<?xml-model href="https://pds.nasa.gov/pds4/pds/v1/PDS4_PDS_1H00.sch"?>
+<?xml-model href="https://pds.nasa.gov/pds4/pds/v1/PDS4_PDS_1L00.sch"?>
 
 <Ingest_LDD 
   xmlns="http://pds.nasa.gov/pds4/pds/v1"
   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
   xmlns:pds="http://pds.nasa.gov/pds4/pds/v1"
   xsi:schemaLocation="http://pds.nasa.gov/pds4/pds/v1
-                      https://pds.nasa.gov/pds4/pds/v1/PDS4_PDS_1H00.xsd">
+                      https://pds.nasa.gov/pds4/pds/v1/PDS4_PDS_1L00.xsd">
 
     <name>Hubble Space Telescope Mission Dictionary</name>
-    <ldd_version_id>1.0</ldd_version_id>
+    <ldd_version_id>1.0.1</ldd_version_id>
     <dictionary_type>Mission</dictionary_type>
     <full_name>Matthew S. Tiscareno</full_name>
     <steward_id>rings</steward_id>
@@ -20,8 +20,12 @@
       
       version 1.0  2024-04-15
       - Initial release version
+
+      version 1.0.1  2024-05-31
+      - Update ldd_version_id value, pds4_versions, and current IM version
+      
     </comment>
-    <last_modification_date_time>2024-04-15</last_modification_date_time>
+    <last_modification_date_time>2024-05-31</last_modification_date_time>
 
 <!--      Observing program attributes     -->
 

@@ -2,12 +2,12 @@ PDS4 Local Data Dictionary Processing Report
 
 Configuration:
    LDDTool Version        15.1.0
-   LDD Version Id:        1.0
+   LDD Version Id:        1.0.1
    LDD Label Version Id:  1.23
    LDD Discipline (T/F):  false
    LDD Namespace URL:     http://pds.nasa.gov/pds4/
    LDD URN Prefix:        urn:nasa:pds:
-   Time                   Fri May 31 03:54:28 UTC 2024
+   Time                   Fri May 31 21:20:37 UTC 2024
    Common Schema          [PDS4_PDS_1H00.xsd]
    Common Schematron      [PDS4_PDS_1H00.sch]
    IM Version Id:         1.17.0.0
@@ -39,7 +39,7 @@ Detailed validation messages
 
 Parsed Input - Header:
    LDD Name               Hubble Space Telescope Mission Dictionary
-   LDD Version            1.0
+   LDD Version            1.0.1
    Full Name              Matthew S. Tiscareno
    Steward                rings
    Namespace Id           hst
@@ -49,8 +49,12 @@ Parsed Input - Header:
       
       version 1.0  2024-04-15
       - Initial release version
+
+      version 1.0.1  2024-05-31
+      - Update ldd_version_id value, pds4_versions, and current IM version
+      
     
-   Last Modification Time 2024-04-15
+   Last Modification Time 2024-05-31
    PDS4 Merge Flag        false
 
 Parsed Input - Attributes:

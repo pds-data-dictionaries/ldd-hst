@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
-  <!-- PDS4 XML/Schema for Name Space Id:hst  Version:1.0.0.0 - Fri May 31 03:54:28 UTC 2024 -->
+  <!-- PDS4 XML/Schema for Name Space Id:hst  Version:1.0.1.0 - Fri May 31 21:20:37 UTC 2024 -->
   <!-- Generated from the PDS4 Information Model Version 1.17.0.0 - System Build 12.0 -->
   <!-- *** This PDS4 product schema is an operational deliverable. *** -->
   <!--                                                                           -->
   <!--               Dictionary Stack                                            -->
   <!-- 1.17.0.0 - pds: - Common Dictionary                                       -->
-  <!-- 1.0.0.0 - hst: - Hubble Space Telescope Mission Dictionary                -->
+  <!-- 1.0.1.0 - hst: - Hubble Space Telescope Mission Dictionary                -->
   <!--                                                                           -->
   <xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema"
     targetNamespace="http://pds.nasa.gov/pds4/mission/hst/v1"
@@ -13,7 +13,7 @@
     xmlns:pds="http://pds.nasa.gov/pds4/pds/v1"
     elementFormDefault="qualified"
     attributeFormDefault="unqualified"
-    version="1.0.0.0">
+    version="1.0.1.0">
  
     <xs:import namespace="http://pds.nasa.gov/pds4/pds/v1" schemaLocation="https://pds.nasa.gov/pds4/pds/v1/PDS4_PDS_1H00.xsd"/>
  
@@ -25,6 +25,10 @@
       
       version 1.0  2024-04-15
       - Initial release version
+
+      version 1.0.1  2024-05-31
+      - Update ldd_version_id value, pds4_versions, and current IM version
+      
     
     </xs:documentation>
   </xs:annotation>
