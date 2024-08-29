@@ -1,9 +1,9 @@
 
 >>  INFO LDDTOOL Version: 15.1.0
->>  INFO IM Version Id: 1.22.0.0
+>>  INFO IM Version Id: 1.21.0.0
 >>  INFO IM Namespace Id: pds
->>  INFO IM Label Version Id: 1.0
->>  INFO Date: Fri May 31 21:20:32 UTC 2024
+>>  INFO IM Label Version Id: 1.27
+>>  INFO Date: Thu Aug 29 21:53:27 UTC 2024
 >>  INFO PARENT_DIR: /tmp/lddtool-15.1.0/Data/
 
 >>> INFO Init:  - Config.Properties Namespace Id Found:hst
@@ -25,18 +25,19 @@
 
 Input:
 
-     - IM Version: 1M00
+     - IM Version: 1L00
      - PDS4 Flag: true
      - LDD Flag: true
+     - IM Version: true
      - Export JSON Flag: true
 
      - Ingest LDD(s): /home/runner/work/ldd-hst/ldd-hst/src/PDS4_HST_IngestLDD.xml
 
 Output:
 
-     - ./PDS4_HST_1M00_1010.xsd
-     - ./PDS4_HST_1M00_1010.sch
-     - ./PDS4_HST_1M00_1010.xml
-     - ./export/JSON/PDS4_PDS_1M00.JSON
+     - ./PDS4_HST_1L00_2000.xsd
+     - ./PDS4_HST_1L00_2000.sch
+     - ./PDS4_HST_1L00_2000.xml
+     - ./export/JSON/PDS4_PDS_1L00.JSON
 
 >>  INFO Exit(0)

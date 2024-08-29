@@ -1,33 +1,38 @@
 <?xml version="1.0" encoding="UTF-8"?>
-  <!-- PDS4 XML/Schema for Name Space Id:hst  Version:1.0.1.0 - Fri May 31 21:20:32 UTC 2024 -->
-  <!-- Generated from the PDS4 Information Model Version 1.22.0.0 - System Build 14.1 -->
+  <!-- PDS4 XML/Schema for Name Space Id:hst  Version:2.0.0.0 - Thu Aug 29 21:53:27 UTC 2024 -->
+  <!-- Generated from the PDS4 Information Model Version 1.21.0.0 - System Build 14.0 -->
   <!-- *** This PDS4 product schema is an operational deliverable. *** -->
   <!--                                                                           -->
   <!--               Dictionary Stack                                            -->
-  <!-- 1.22.0.0 - pds: - Common Dictionary                                       -->
-  <!-- 1.0.1.0 - hst: - Hubble Space Telescope Mission Dictionary                -->
+  <!-- 1.21.0.0 - pds: - Common Dictionary                                       -->
+  <!-- 2.0.0.0 - hst: - Hubble Space Telescope Mission Dictionary                -->
   <!--                                                                           -->
   <xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema"
-    targetNamespace="http://pds.nasa.gov/pds4/mission/hst/v1"
-    xmlns:hst="http://pds.nasa.gov/pds4/mission/hst/v1"
+    targetNamespace="http://pds.nasa.gov/pds4/mission/hst/v2"
+    xmlns:hst="http://pds.nasa.gov/pds4/mission/hst/v2"
     xmlns:pds="http://pds.nasa.gov/pds4/pds/v1"
     elementFormDefault="qualified"
     attributeFormDefault="unqualified"
-    version="1.0.1.0">
+    version="2.0.0.0">
  
-    <xs:import namespace="http://pds.nasa.gov/pds4/pds/v1" schemaLocation="https://pds.nasa.gov/pds4/pds/v1/PDS4_PDS_1M00.xsd"/>
+    <xs:import namespace="http://pds.nasa.gov/pds4/pds/v1" schemaLocation="https://pds.nasa.gov/pds4/pds/v1/PDS4_PDS_1L00.xsd"/>
  
   <xs:annotation>
     <xs:documentation>
 
-      Note: Several pre-release versions are tagged within the ldd-hst repo on GitHub.
-      These were written between 2020 and 2024 by Mark Showalter and Mitch Gordon.
+      Note: Several pre-release versions are tagged within the ldd-hst repo
+      on GitHub.  These were written between 2020 and 2024 by Mark Showalter
+      and Mitch Gordon.
       
       version 1.0  2024-04-15
       - Initial release version
 
       version 1.0.1  2024-05-31
       - Update ldd_version_id value, pds4_versions, and current IM version
+
+      version 2.0.0  2024-08-29
+      - Add units to plate_scale (backwards-incompatible, thus triggering a
+      major version)
       
     
     </xs:documentation>
@@ -689,6 +694,13 @@
 	   </xs:restriction>
   </xs:simpleType>
 
+  <xs:simpleType name="plate_scale_WO_Units">
+    <xs:restriction base="pds:ASCII_Real">
+     <xs:minInclusive value="-1.7976931348623157e308"/>
+     <xs:maxInclusive value="1.7976931348623157e308"/>
+	   </xs:restriction>
+  </xs:simpleType>
+
   <xs:complexType name="plate_scale">
     <xs:annotation>
       <xs:documentation> This attribute indicates approximate spatial
@@ -702,7 +714,8 @@
         </xs:documentation>
     </xs:annotation>
     <xs:simpleContent>
-      <xs:extension base="pds:ASCII_Real">
+      <xs:extension base="hst:plate_scale_WO_Units">
+        <xs:attribute name="unit" type="pds:Units_of_Pixel_Resolution_Angular" use="required" />
         <xs:attribute name="nilReason" type="pds:nil_reason" use="optional" />
       </xs:extension>
     </xs:simpleContent>

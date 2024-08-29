@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-  <!-- PDS4 Schematron for Name Space Id:hst  Version:1.0.1.0 - Fri May 31 21:20:43 UTC 2024 -->
+  <!-- PDS4 Schematron for Name Space Id:hst  Version:2.0.0.0 - Thu Aug 29 21:53:27 UTC 2024 -->
   <!-- Generated from the PDS4 Information Model Version 1.21.0.0 - System Build 14.0 -->
   <!-- *** This PDS4 schematron file is an operational deliverable. *** -->
 <sch:schema xmlns:sch="http://purl.oclc.org/dsdl/schematron" queryBinding="xslt2">
@@ -8,7 +8,7 @@
 
   <sch:ns uri="http://www.w3.org/2001/XMLSchema-instance" prefix="xsi"/>
   <sch:ns uri="http://pds.nasa.gov/pds4/pds/v1" prefix="pds"/>
-  <sch:ns uri="http://pds.nasa.gov/pds4/mission/hst/v1" prefix="hst"/>
+  <sch:ns uri="http://pds.nasa.gov/pds4/mission/hst/v2" prefix="hst"/>
 
 		   <!-- ================================================ -->
 		   <!-- NOTE:  There are two types of schematron rules.  -->
@@ -51,6 +51,13 @@
       <sch:assert test=". = ('IMAGING', 'SPECTROSCOPIC', 'TIME-SERIES')">
         <title>hst:Instrument_Parameters/hst:observation_type/hst:observation_type</title>
         The attribute hst:Instrument_Parameters/hst:observation_type must be equal to one of the following values 'IMAGING', 'SPECTROSCOPIC', 'TIME-SERIES'.</sch:assert>
+    </sch:rule>
+  </sch:pattern>
+  <sch:pattern>
+    <sch:rule context="hst:Operational_Parameters/hst:plate_scale">
+      <sch:assert test="@unit = ('HA/pixel', 'arcsec/pixel', 'deg/pixel', 'radian/pixel')">
+        <title>hst:Operational_Parameters/hst:plate_scale/hst:plate_scale</title>
+        The attribute @unit must be equal to one of the following values 'HA/pixel', 'arcsec/pixel', 'deg/pixel', 'radian/pixel'.</sch:assert>
     </sch:rule>
   </sch:pattern>
   <sch:pattern>
